@@ -43,7 +43,7 @@ fn parse_and_run_instruction(line: String, boat: &mut Boat) {
 
         (
             res.parse()
-                .expect(format!("{} is no number!", res).as_str()),
+                .unwrap_or_else(|_| panic!("{} is no number!", res)),
             0,
         )
     } else if line.contains("up") {
@@ -51,14 +51,14 @@ fn parse_and_run_instruction(line: String, boat: &mut Boat) {
         (
             0,
             -res.parse::<isize>()
-                .expect(format!("{} is no number!", res).as_str()),
+                .unwrap_or_else(|_| panic!("{} is no number!", res)),
         )
     } else if line.contains("down") {
         let res = line.replace("down ", "");
         (
             0,
             res.parse::<isize>()
-                .expect(format!("{} is no number!", res).as_str()),
+                .unwrap_or_else(|_| panic!("{} is no number!", res)),
         )
     } else {
         panic!("Faulty input: {}", line);
@@ -108,7 +108,7 @@ fn parse_and_run_instruction_2(line: String, boat: &mut Boat2) {
 
         let x: isize = res
             .parse()
-            .expect(format!("{} is no number!", res).as_str());
+            .unwrap_or_else(|_| panic!("{} is no number!", res));
 
         boat.horizontal += x;
         boat.depth += boat.aim * x;
@@ -116,13 +116,13 @@ fn parse_and_run_instruction_2(line: String, boat: &mut Boat2) {
         let res = line.replace("up ", "");
         boat.aim -= res
             .parse::<isize>()
-            .expect(format!("{} is no number!", res).as_str());
+            .unwrap_or_else(|_| panic!("{} is no number!", res));
     } else if line.contains("down") {
         let res = line.replace("down ", "");
 
         boat.aim += res
             .parse::<isize>()
-            .expect(format!("{} is no number!", res).as_str());
+            .unwrap_or_else(|_| panic!("{} is no number!", res));
     } else {
         panic!("Faulty input: {}", line);
     };
